@@ -1,41 +1,28 @@
-import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import {  Container } from "@chakra-ui/react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Nav from "./components/Nav";
+import DashBoard from "./pages/DashBoard";
+import Home from "./pages/Home";
+import Editpage from "./pages/Editpage";
+import PublicProfileCollege from "./pages/PublicProfileCollege";
+import PublicOffice from "./pages/PublicOffice";
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <Container maxW={"8xl"}>
+      <BrowserRouter>
+        <Nav/>
+        <Routes>
+          <Route path="/" exact element={<Home/>}/>
+          <Route path="/college/:college_name" exact element={<PublicProfileCollege/>}/>
+          <Route path="/company/:company_name" exact element={<PublicOffice/>}/>
+          <Route path="/dashboard" element={<DashBoard/>}/>
+          <Route path="/college/editDetails" element={<Editpage/>}/>
+          <Route path="/college/previousYear" element={<Editpage/>}/>
+          <Route path="/college/inviteoffices" element={<DashBoard/>}/>
+        </Routes>
+      </BrowserRouter>
+    </Container>
   );
 }
 
